@@ -25,6 +25,7 @@ public class Cli {
     options.addOption("u", "username", true, "Username");
     options.addOption("p", "password", true, "Password");
     options.addOption("c", "container", true, "Container");
+    options.addOption("o", "operation", true, "operation");
 
   }
 
@@ -53,6 +54,10 @@ public class Cli {
       }
       if (!cmd.hasOption("c")) {
         log.log(Level.SEVERE, "Missing c option");
+        help();
+      }
+      if (!cmd.hasOption("o")) {
+        log.log(Level.SEVERE, "Missing o option");
         help();
       }
     } catch (ParseException e) {

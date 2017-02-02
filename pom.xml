@@ -25,8 +25,8 @@
             <groupId>oracle</groupId>
             <artifactId>oracle-sdk</artifactId>
             <version>13.1.1</version>
-		</dependency
-		><dependency>
+		</dependency>
+		<dependency>
 			<groupId>com.sun.jersey</groupId>
 			<artifactId>jersey-client</artifactId>
 			<version>1.13</version>
