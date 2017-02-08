@@ -91,7 +91,7 @@ public class App
       List<Container> list = jack_connection.listContainers();
       for (Container cont : list) {
         System.out.println("Name:" + cont.getName() + " Size:" + cont.getSize() +
-            " Count:" + cont.getSize());
+            " Count:" + cont.getCount());
       }
     } else if (operation.equals("createObject")) {
 

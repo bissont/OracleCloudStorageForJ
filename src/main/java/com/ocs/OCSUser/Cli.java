@@ -52,7 +52,7 @@ public class Cli {
         log.log(Level.SEVERE, "Missing s option");
         help();
       }
-      if (!cmd.hasOption("c")) {
+      if (!cmd.hasOption("c") && !cmd.getOptionValue("o").equals("listContainers")) {
         log.log(Level.SEVERE, "Missing c option");
         help();
       }
