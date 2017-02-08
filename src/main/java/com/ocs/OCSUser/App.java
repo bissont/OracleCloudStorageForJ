@@ -10,6 +10,7 @@ import oracle.cloud.storage.model.*;
 import oracle.cloud.storage.exception.*;
 
 import org.apache.commons.cli.CommandLine;
+import org.apache.commons.lang.RandomStringUtils;
 
 /**
  * Hello world!
@@ -92,6 +93,26 @@ public class App
         System.out.println("Name:" + cont.getName() + " Size:" + cont.getSize() +
             " Count:" + cont.getSize());
       }
+    } else if (operation.equals("createObject")) {
+
+      Container c = jack_connection.describeContainer(container);
+      if (c == null) {
+        System.out.println("Container is not valid");
+        return;
+      }
+
+      String key = RandomStringUtils.randomAlphanumeric(10);
+      String value= RandomStringUtils.randomAlphanumeric(100);
+      System.out.println("key: " + key + " value: " + value);
+      InputStream in = new ByteArrayInputStream(value.getBytes());
+
+      Key ret = jack_connection.storeObject(container, key, "text/plain", in);
+      if (ret == null) {
+        System.out.println("ret: " + ret + " not equal to key: " + key);
+        return;
+      }
+      System.out.println("Key is " + ret.getKey() + " size: " + ret.getSize());
+
     } else if (operation.equals("createContainers")) {
 
       admin_connection.createContainer(container+"1");
