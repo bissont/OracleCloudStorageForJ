@@ -26,6 +26,7 @@ public class Cli {
     options.addOption("p", "password", true, "Password");
     options.addOption("c", "container", true, "Container");
     options.addOption("o", "operation", true, "operation");
+    options.addOption("k", "key", true, "key");
 
   }
 

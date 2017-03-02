@@ -1,5 +1,6 @@
 package com.ocs.OCSUser;
 
+import java.nio.charset.Charset;
 import java.util.List;
 import java.net.MalformedURLException;
 import java.io.InputStream;
@@ -10,6 +11,7 @@ import oracle.cloud.storage.model.*;
 import oracle.cloud.storage.exception.*;
 
 import org.apache.commons.cli.CommandLine;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.RandomStringUtils;
 
 /**
@@ -55,7 +57,8 @@ public class App
     String service = cl.getOptionValue("s");
     String container = cl.getOptionValue("c");
     String operation = cl.getOptionValue("o");
-    System.out.println(container);
+    String inKey = cl.getOptionValue("k");
+    System.out.println(container+ "\n-----------");
     admin_config.setServiceName("Storage-"+ service)
         .setUsername(user)
         .setPassword(password.toCharArray());
@@ -130,6 +133,20 @@ public class App
           (canRead(jack_connection,container) ? "Yes" : "No"));
       System.out.println("Can Jack write to the World Container? " +
           (canWrite(jack_connection,container) ? "Yes" : "No"));
+    } else if (operation.equals("listObjects")) {
+      List<Key> objects = admin_connection.listObjects(container, null);
+       for (Key key : objects) {
+         System.out.println(key.getKey());
+       }
+    } else if (operation.equals("getObject")) {
+      byte[] buffer = new byte[100];
+      StorageInputStream inputStream = admin_connection.retrieveObject(container, inKey);
+      try {
+        int res = inputStream.read(buffer);
+        System.out.println("Count:" + Integer.toString(res)+ " Object: " + buffer);
+      } catch(Exception e) {
+        e.printStackTrace();
+      }
     }
   }
 }
